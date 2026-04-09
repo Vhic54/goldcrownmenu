@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+    h1 {
+      text-align: center;
+    }
+    .category {
+      margin-top: 30px;
+    }
+    .category h2 {
+      border-bottom: 2px solid #333;
+      padding-bottom: 5px;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Restaurant Menu</h1>
+<div id="menu"></div>
+
+<!-- Embedded JSON (acts like your external file but works everywhere) -->
+<script id="menu-data" type="application/json">
+{
+  "categories": [
+    {
+      "name": "Breakfast",
+      "items": [
+        { "name": "Simple English Breakfast (bread, baked beans, sausage & egg with tea)", "price": 6500 },
+        { "name": "Moi-Moi Breakfast (moi-moi, egg, oat or pap or custard with tin milk)", "price": 7000 },
+        { "name": "Fried Plantain Breakfast (plantain, egg, custard or oat or pap with tin milk)", "price": 7000 },
+        { "name": "Oatmeal Breakfast (portion of plantain & oats with tin milk)", "price": 4500 },
+        { "name": "Tea or Coffee", "price": 1000 },
+        { "name": "Custard", "price": 1000 }
+      ]
+    },
+    {
+      "name": "Soup",
+      "items": [
+        { "name": "Afang Soup", "price": 2500 },
+        { "name": "Vegetable Soup", "price": 2500 },
+        { "name": "Ogbono Soup", "price": 2000 },
+        { "name": "Bitter Leaf Soup", "price": 2000 },
+        { "name": "Oha Soup", "price": 2000 },
+        { "name": "Egusi Soup", "price": 2000 },
+        { "name": "Okro Soup", "price": 1500 },
+        { "name": "Ofe Owerri", "price": 2000 },
+        { "name": "Fisherman Soup", "price": 5000 }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        { "name": "Fried Rice", "price": 2500 },
+        { "name": "Chinese Egg Fried Rice", "price": 5000 },
+        { "name": "Jollof Rice", "price": 2500 },
+        { "name": "Native Rice", "price": 2500 },
+        { "name": "White Rice", "price": 1500 },
+        { "name": "Asun Rice", "price": 4000 },
+        { "name": "Coconut Rice", "price": 2500 }
+      ]
+    },
+    {
+      "name": "Swallow",
+      "items": [
+        { "name": "Garri", "price": 1000 },
+        { "name": "Semo", "price": 2000 },
+        { "name": "Plantain Flour", "price": 2000 },
+        { "name": "Oatmeal", "price": 2000 },
+        { "name": "Wheat", "price": 2000 },
+        { "name": "Poundo", "price": 2000 }
+      ]
+    },
+    {
+      "name": "Spaghetti & Noodles",
+      "items": [
+        { "name": "Combo Spaghetti", "price": 3500 },
+        { "name": "Jollof Spaghetti", "price": 3500 },
+        { "name": "Plain Noodles", "price": 2000 },
+        { "name": "Vegetable Noodles", "price": 2500 },
+        { "name": "Noodles and Egg", "price": 3500 }
+      ]
+    },
+    {
+      "name": "Proteins & Pepper Soup",
+      "items": [
+        { "name": "Goat Meat", "price": 5000 },
+        { "name": "Chicken", "price": 5000 },
+        { "name": "Assorted", "price": 4000 },
+        { "name": "Croaker Fish", "price": 5000 },
+        { "name": "Cow Leg", "price": 5000 },
+        { "name": "Cat Fish", "price": 5000 },
+        { "name": "Dry Cat Fish", "price": 6000 },
+        { "name": "Turkey", "price": 6000 },
+        { "name": "Chicken Wings (6)", "price": 4000 },
+        { "name": "Snail", "price": 6000 },
+        { "name": "King Prawns", "price": 7000 },
+        { "name": "Gizziedodo", "price": 4000 },
+        { "name": "Add Plantain or Yam (extra)", "price": 1000 }
+      ]
+    },
+    {
+      "name": "Pottage",
+      "items": [
+        { "name": "Plantain Pottage", "price": 3500 },
+        { "name": "Yam Pottage", "price": 3500 },
+        { "name": "Sweet Potato Pottage", "price": 3000 },
+        { "name": "Irish Potato Pottage", "price": 4000 }
+      ]
+    },
+    {
+      "name": "Chips",
+      "items": [
+        { "name": "Potato Chips", "price": 2000 },
+        { "name": "Plantain Chips", "price": 3000 },
+        { "name": "Yam Chips", "price": 3000 }
+      ]
+    },
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Sandwich", "price": 4000 },
+        { "name": "Meat Pie", "price": 1000 },
+        { "name": "Egg Roll", "price": 800 },
+        { "name": "Groundnut", "price": 3500 },
+        { "name": "Cashew Nut", "price": 5000 },
+        { "name": "Moi-moi", "price": 1500 },
+        { "name": "Sausage Roll", "price": 800 }
+      ]
+    },
+    {
+      "name": "Local",
+      "items": [
+        { "name": "Isi-ewu", "price": 9000 },
+        { "name": "Nkwobi", "price": 5000 },
+        { "name": "Gizziedodo", "price": 3500 },
+        { "name": "Peppered Cow Leg", "price": 4500 },
+        { "name": "Abacha and Kanda", "price": 3000 },
+        { "name": "Ugba and Kanda", "price": 3000 }
+      ]
+    },
+    {
+      "name": "Wine",
+      "items": [
+        { "name": "Carlo Rossi", "price": 15000 },
+        { "name": "Escudo Rojo", "price": 22000 },
+        { "name": "Toma Toma", "price": 15000 },
+        { "name": "B&G", "price": 15000 },
+        { "name": "Thomas Barton", "price": 35000 }
+      ]
+    },
+    {
+      "name": "Sweet Wine",
+      "items": [
+        { "name": "Four Cousins", "price": 20000 },
+        { "name": "Carlo Rossi", "price": 25000 }
+      ]
+    },
+    {
+      "name": "Champagne",
+      "items": [
+        { "name": "Henkel", "price": 15000 },
+        { "name": "Moet (Brut)", "price": 0 },
+        { "name": "Moet (Rose)", "price": 0 },
+        { "name": "Andre Rose", "price": 20000 },
+        { "name": "Andre Brut", "price": 20000 }
+      ]
+    },
+    {
+      "name": "Shots",
+      "items": [
+        { "name": "Vodka Shot", "price": 1500 },
+        { "name": "Campari Shot", "price": 1500 },
+        { "name": "American Honey", "price": 2000 }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        { "name": "Heineken", "price": 2000 },
+        { "name": "Budweiser", "price": 1500 },
+        { "name": "Smirnoff Big", "price": 1500 },
+        { "name": "Star Radler", "price": 1500 },
+        { "name": "Origin", "price": 1200 },
+        { "name": "Tiger", "price": 1500 },
+        { "name": "Trophy", "price": 1500 },
+        { "name": "Flying Fish", "price": 1500 }
+      ]
+    },
+    {
+      "name": "Energy Drinks",
+      "items": [
+        { "name": "Blue Bullet", "price": 2500 },
+        { "name": "Monster", "price": 2000 },
+        { "name": "Red Bull", "price": 3000 },
+        { "name": "Power Horse", "price": 3000 }
+      ]
+    },
+    {
+      "name": "Juice & Soft Drinks",
+      "items": [
+        { "name": "5 Alive", "price": 2500 },
+        { "name": "Chi Active", "price": 3500 },
+        { "name": "Chi Exotic", "price": 3500 },
+        { "name": "Hollandia", "price": 3500 },
+        { "name": "Coca Cola", "price": 700 },
+        { "name": "Malt", "price": 1000 },
+        { "name": "Fayrouz", "price": 1000 },
+        { "name": "Water", "price": 600 },
+        { "name": "Fresh Juice", "price": 4500 },
+        { "name": "Vita Milk", "price": 2500 }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+  function renderMenu(data) {
+    const menuContainer = document.getElementById('menu');
+    menuContainer.innerHTML = '';
+
+    data.categories.forEach(category => {
+      const categoryDiv = document.createElement('div');
+      categoryDiv.classList.add('category');
+
+      const title = document.createElement('h2');
+      title.textContent = category.name;
+      categoryDiv.appendChild(title);
+
+      category.items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('menu-item');
+
+        const name = document.createElement('span');
+        name.textContent = item.name;
+
+        const price = document.createElement('span');
+        price.textContent = `₦${item.price}`;
+
+        itemDiv.appendChild(name);
+        itemDiv.appendChild(price);
+
+        categoryDiv.appendChild(itemDiv);
+      });
+
+      menuContainer.appendChild(categoryDiv);
+    });
+  }
+
+  function loadMenu() {
+    try {
+      const jsonScript = document.getElementById('menu-data');
+      const data = JSON.parse(jsonScript.textContent);
+      renderMenu(data);
+    } catch (error) {
+      console.error('Error loading menu:', error);
+    }
+  }
+
+  loadMenu();
+
+  // -------- TESTS --------
+  function runTests() {
+    console.log('Running tests...');
+
+    // Test 1: Valid data
+    try {
+      const testData = { categories: [{ name: 'Test', items: [{ name: 'Item', price: 100 }] }] };
+      renderMenu(testData);
+      console.log('✅ Test 1 passed');
+    } catch (e) {
+      console.error('❌ Test 1 failed', e);
+    }
+
+    // Test 2: Invalid data
+    try {
+      renderMenu({});
+      console.error('❌ Test 2 failed');
+    } catch {
+      console.log('✅ Test 2 passed');
+    }
+  }
+
+  // runTests();
+</script>
+
+</body>
+</html>
